@@ -1,0 +1,44 @@
+{%extends 'bases.html'%} {%block body_block%} {%load static%}
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+
+    <div class="card mb-4">
+      <div class="card-header" >
+              <h1 class="text-center">States</h1>
+          </a>
+      </div>
+  </div>
+
+      <div class="card-body">
+        {%if states%}
+        <table class="table table-info table-striped text-center">
+          <tr>
+        
+            <th>name</th>
+            <th>code</th>
+            <th>Country</th>
+           
+          </tr>
+          {%for state in states%}
+          <tr>
+            
+            <td>{{state.name}}</td>
+            <td>{{state.code}}</td>
+            <td>{{state.country.name}}</td>
+           
+           
+          </tr>
+          {%endfor%}
+        </table>
+
+        {%else%}
+        <h2>NO states</h2>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}
+

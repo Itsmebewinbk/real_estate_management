@@ -1,0 +1,85 @@
+{%extends 'bases.html'%} {%block body_block%} {%load static%}
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+
+    <div class="card mb-4">
+      <div class="card-header" style="background-color: #000;">
+          <a href="{% url 'tenant_create' %}" class="text-decoration-none" style="color: #fff; display: block;">
+              <h1 class="text-center">Tenants</h1>
+          </a>
+      </div>
+  </div>
+  <div class="card-body">
+    <!-- Search bar form -->
+    <form method="GET" action="{% url 'tenant_search' %}">
+      <div class="input-group mb-3">
+        <input type="text" class="" placeholder="Search by tenant name" name="search_query">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
+    </form>
+
+      <div class="card-body">
+        {%if tenants%}
+        <table class="table table-info table-striped text-center">
+          <tr>
+            <th>tenants</th>
+            <th>name</th>
+            <th>document_proofs</th>
+            <th>State</th>
+            <th>Mobile</th>
+            <th>Action</th>
+          </tr>
+          {%for tenant in tenants%}
+          <tr>
+            <td>
+              <a href="{{ tenant.image }}">
+                <img
+                  src="{{ tenant.image }}"
+                  alt="{{ tenant.image }}"
+                  height="60"
+                />
+              </a>
+            </td>
+            <td>{{tenant.name}}</td>
+            <td>
+            <a href="{{ tenant.document_proofs }}">
+                <img
+                  src="{{ tenant.document_proofs }}"
+                  alt="{{ tenant.document_proofs }}"
+                  height="60"
+                />
+            </td>
+            <td>{{tenant.state.name}}</td>
+            <td>{{ tenant.phone_code.phone_code }} {{ tenant.mobile }}</td>
+            <td>
+              <a
+                href="{% url 'tenant_edit' id=tenant.id %}"
+                class="btn btn-outline-warning"
+                >Edit</a
+              >
+
+              <a
+                href="{% url 'tenant_detail' id=tenant.id %}"
+                class="btn btn-outline-info"
+                >View</a
+              >
+              <a
+                href="{% url 'tenant_delete' id=tenant.id %}"
+                class="btn btn-outline-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+
+        {%else%}
+        <h2>NO tenants</h2>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}

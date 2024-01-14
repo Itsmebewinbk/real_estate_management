@@ -1,0 +1,103 @@
+{%extends 'bases.html'%} {%block body_block%} {%load static%}
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+
+    <div class="card mb-4">
+      <div class="card-header" style="background-color: #000;">
+          <a href="{% url 'unit_create' %}" class="text-decoration-none" style="color: #fff; display: block;">
+              <h1 class="text-center">Units</h1>
+          </a>
+      </div>
+  </div>
+  <div class="card-body">
+    <!-- Search bar form -->
+    <form method="GET" action="{% url 'unit_search' %}">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by unit name" name="search_query">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
+    </form>
+
+      <div class="card-body">
+        {%if units%}
+        <table class="table table-info table-striped text-center">
+          <tr>
+            <th>units</th>
+            <th>units name</th>
+            <th>Property</th>
+            <th>cost</th>
+            <th>type</th>
+            <th>Active</th>
+            <th>Status</th>
+            <th>Tenant</th>
+            <th>Action</th>
+          </tr>
+          {%for unit in units%}
+          <tr>
+            <td>
+              <a href="{{ unit.image }}">
+                <img
+                  src="{{ unit.image }}"
+                  alt="{{ unit.image }}"
+                  height="60"
+                />
+              </a>
+            </td>
+            <td>{{ unit.name }}</td>
+            <td>{{ unit.property.name }}</td>
+            <td>{{ unit.cost }}</td>
+            <td>{{ unit.type }}</td>
+    
+            <td>
+                {% if unit.is_active %}
+                    Active
+                {% else %}
+                    Inactive
+                {% endif %}
+            </td>
+            <td>
+                {% if unit.is_occupied %}
+                    Occupied
+                {% else %}
+                    Not Occupied
+                {% endif %}
+            </td>
+            <td>
+                {% if unit.tenant %}
+                    {{ unit.tenant.name }}
+                {% else %}
+                    No Tenant
+                {% endif %}
+            </td>
+            <td>
+              <a
+                href="{% url 'unit_edit' id=unit.id %}"
+                class="btn btn-outline-warning"
+                >Edit</a
+              >
+
+              <a
+                href="{% url 'unit_detail' id=unit.id %}"
+                class="btn btn-outline-info"
+                >View</a
+              >
+              <a
+                href="{% url 'unit_delete' id=unit.id %}"
+                class="btn btn-outline-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+
+        {%else%}
+        <h2>NO units</h2>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}

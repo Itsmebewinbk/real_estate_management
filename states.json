@@ -1,0 +1,47 @@
+[
+    {
+        "model": "common.state",
+        "pk": 1,
+        "fields": {
+            "name": "Kerala",
+            "code": "KL",
+            "country": 98
+        }
+    },
+    {
+        "model": "common.state",
+        "pk": 2,
+        "fields": {
+            "name": "Karnataka",
+            "code": "KA",
+            "country": 98
+        }
+    },
+    {
+        "model": "common.state",
+        "pk": 3,
+        "fields": {
+            "name": "Tamil Nadu",
+            "code": "TN",
+            "country": 98
+        }
+    },
+    {
+        "model": "common.state",
+        "pk": 4,
+        "fields": {
+            "name": "Maharashtra",
+            "code": "MA",
+            "country": 98
+        }
+    },
+    {
+        "model": "common.state",
+        "pk": 5,
+        "fields": {
+            "name": "Gujarat",
+            "code": "GJ",
+            "country": 98
+        }
+    }
+]

@@ -1,0 +1,59 @@
+{% extends 'bases.html' %} {% block body_block %} {% load static %}
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+
+    <div class="card mb-4">
+      <div class="card-header" style="background-color: #000;">
+        <a href="{% url 'property_create' %}" class="text-decoration-none" style="color: #fff; display: block;">
+          <h1 class="text-center">Properties</h1>
+        </a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search bar form -->
+      <form method="GET" action="{% url 'property_search' %}">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search by property name" name="search_query">
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+      </form>
+
+      {% if properties %}
+      <table class="table table-info table-striped text-center">
+        <tr>
+          <th>Properties</th>
+          <th>Properties name</th>
+          <th>Features</th>
+          <th>State</th>
+          <th>Mobile</th>
+          <th>Action</th>
+        </tr>
+        {% for property in properties %}
+        <tr>
+          <td>
+            <a href="{{ property.image }}">
+              <img src="{{ property.image }}" alt="{{ property.image }}" height="60" />
+            </a>
+          </td>
+          <td>{{ property.name }}</td>
+          <td>{{ property.features }}</td>
+          <td>{{ property.state }}</td>
+          <td>{{ property.mobile }}</td>
+          <td>
+            <a href="{% url 'property_edit' id=property.id %}" class="btn btn-outline-warning">Edit</a>
+            <a href="{% url 'property_detail' id=property.id %}" class="btn btn-outline-info">View</a>
+            <a href="{% url 'property_delete' id=property.id %}" class="btn btn-outline-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <h2>NO Properties</h2>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

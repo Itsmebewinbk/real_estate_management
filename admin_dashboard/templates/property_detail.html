@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property_View</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+{% if messages %}
+    {% for m in messages %}
+        {% if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ m }}</strong> You should check in on some of those fields below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        {% if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ m }}</strong> You should check in on some of those fields below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand ps-3" href="">Real Estate Management</a>
+    <a class="navbar-brand" href=""> {{ request.user }}</a>
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <a class="btn btn-outline-info" href="{{ request.META.HTTP_REFERER|escape }}">Back</a>
+    </form>
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <a class="btn btn-outline-info" href="">Logout</a>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="card" style="width: 20rem; margin-top: 10mm;">
+                <a href="{{ property.image }}">
+                    <img
+                        src="{{ property.image }}"
+                        alt="{{ property.image }}"
+                        height="239"
+                    />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.name }}</h5>
+                    <p class="card-text">{{ property.image }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ property.city }}</li>
+                    <li class="list-group-item"> {{ property.state.name }}</li>
+                    <li class="list-group-item"> {{ property.zipcode }}</li>
+                    <li class="list-group-item"> {{ property.phone_code.phone_code }}</li>
+                    <li class="list-group-item"> {{ property.address }}</li>
+                    <li class="list-group-item"> {{ property.mobile }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-3">
+            <div style="margin-top: 10mm;">
+                <h3>Units of {{ property.name }}</h3>
+                {% if property.units.all %}
+                    <table class="table table-info table-striped text-center">
+                        <tr>
+                            <th>units</th>
+                            <th>units name</th>
+                            <th>Property</th>
+                            <th>cost</th>
+                            <th>type</th>
+                            <th>Active</th>
+                            <th>Status</th>
+                            <th>Tenant</th>
+                            
+                        </tr>
+                        {% for unit in property.units.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ unit.image }}">
+                                        <img
+                                            src="{{ unit.image }}"
+                                            alt="{{ unit.image }}"
+                                            height="60"
+                                        />
+                                    </a>
+                                </td>
+                                <td>{{ unit.name }}</td>
+                                <td>{{ unit.property.name }}</td>
+                                <td>{{ unit.cost }}</td>
+                                <td>{{ unit.type }}</td>
+                                <td>
+                                    {% if unit.is_active %}
+                                        Active
+                                    {% else %}
+                                        Inactive
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if unit.is_occupied %}
+                                        Occupied
+                                    {% else %}
+                                        Not Occupied
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if unit.tenant %}
+                                        {{ unit.tenant.name }}
+                                    {% else %}
+                                        No Tenant
+                                    {% endif %}
+                                </td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>No units for this property.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

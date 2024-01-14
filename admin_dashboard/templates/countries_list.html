@@ -1,0 +1,44 @@
+{%extends 'bases.html'%} {%block body_block%} {%load static%}
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+
+    <div class="card mb-4">
+      <div class="card-header">
+              <h1 class="text-center">Countries</h1>
+          </a>
+      </div>
+  </div>
+
+      <div class="card-body">
+        {%if countries%}
+        <table class="table table-info table-striped text-center">
+          <tr>
+        
+            <th>name</th>
+            <th>code</th>
+            <th>phone_code</th>
+           
+          </tr>
+          {%for country in countries%}
+          <tr>
+            
+            <td>{{country.name}}</td>
+            <td>{{country.code}}</td>
+            <td>{{country.phone_code}}</td>
+           
+           
+          </tr>
+          {%endfor%}
+        </table>
+
+        {%else%}
+        <h2>NO countries</h2>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}
+

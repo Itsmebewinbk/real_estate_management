@@ -1,0 +1,68 @@
+{%extends 'bases.html'%} {%block body_block%} {%load static%}
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+
+    <div class="card mb-4">
+      
+              <h1 class="text-center">Rentals</h1>
+          </a>
+      </div>
+  </div>
+
+      <div class="card-body">
+        {%if rentals%}
+        <table class="table table-info table-striped text-center">
+          <tr>
+           
+            <th>Property</th>
+            <th>Unit</th>
+            <th>Tenant</th>
+            <th>Rent Amount</th>
+            <th>Deposit Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          {%for rental in rentals%}
+          <tr>
+           
+            <td>{{ rental.property.name }}</td>
+            <td>{{ rental.unit.name }}</td>
+            <td>{{ rental.tenant.name }}</td>
+            <td>{{ rental.rent_amount }}</td>
+            <td>{{ rental.deposit_amount }}</td>
+            <td>{{ rental.start_date }}</td>
+            <td>{{ rental.end_date }}</td>
+    
+            <td>
+                {% if rental.is_active %}
+                    Active
+                {% else %}
+                    Inactive
+                {% endif %}
+            </td>
+           
+            <td>
+            
+
+              <a
+                href="{% url 'rental_delete' id=rental.id %}"
+                class="btn btn-outline-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+
+        {%else%}
+        <h2>NO rentals</h2>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}
