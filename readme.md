@@ -1,4 +1,6 @@
-# app_hub
+
+
+### TO ADD PROPERTIES,TENANT,UNITS CLICK ON THE HEADING ITSELF.....
 
 This is an application build using Python Django and Django REST framework.
 
