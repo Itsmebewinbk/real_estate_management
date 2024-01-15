@@ -6,6 +6,7 @@ This is an application build using Python Django and Django REST framework.
 
 ```sh
 git clone https://github.com/Itsmebewinbk/real_estate_management.git
+
 cd moonhive_real_estate
 ```
 
